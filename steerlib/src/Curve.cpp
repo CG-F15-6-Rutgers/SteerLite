@@ -40,7 +40,7 @@ void Curve::addControlPoints(const std::vector<CurvePoint>& inputPoints)
 	sortControlPoints();
 }
 
-// Draw the curve shape on screen, usign window as step size (bigger window: less accurate shape)
+// Draw the curve shape on screen, using window as step size (bigger window: less accurate shape)
 void Curve::drawCurve(Color curveColor, float curveThickness, int window)
 {
 #ifdef ENABLE_GUI
@@ -65,14 +65,56 @@ void Curve::drawCurve(Color curveColor, float curveThickness, int window)
 // Sort controlPoints vector in ascending order: min-first
 void Curve::sortControlPoints()
 {
-	//================DELETE THIS PART AND THEN START CODING===================
-	static bool flag = false;
-	if (!flag)
+	//Sort control points based on time it takes to travel from start point
+	std::vector<CurvePoint> points = getControPoints(); //Control points in curve
+	std::vector<int> distances(points.size()); //List of stored distances
+	std::vector<CurvePoint> sortedPoints = getControPoints(); //List of sorted control points
+
+	int numPoints = controlPoints.size();
+
+	while (points.size() > 0)
 	{
-		std::cerr << "ERROR>>>>Member function sortControlPoints is not implemented!" << std::endl;
-		flag = true;
+		Util::CurvePoint lo = points[0];
+		int index = 0;
+
+		for (int i = 0; i < points.size(); i++) //Loop through all points and find the one with the shortest distance
+		{
+			if (points[i].time < lo.time)
+			{
+				lo = points[i];
+				index = i;
+			}
+		}
+
+		//Add lo to the sorted list
+		sortedPoints[numPoints - points.size()] = lo;
+
+		//Remove lo from points
+		points.erase(points.begin() + index);
 	}
-	//=========================================================================
+
+
+	/*
+	//Print control points (check to make sure they are in order). Agent points are printed followed by camera points.
+	std::cout << "Before sort\n";
+
+	
+	for (int i = 0; i < controlPoints.size(); i++)
+	{
+		std::cout << "Control Point: " << i << "Position: " << controlPoints[i].position << "Time: " << controlPoints[i].time << "\n";
+	}
+
+	controlPoints = sortedPoints;
+
+	std::cout << "After sort\n";
+
+	//Print control points (check to make sure they are in order)
+	for (int i = 0; i < controlPoints.size(); i++)
+	{
+		std::cout << "Control Point: " << i << "Position: " << controlPoints[i].position << "Time: " << controlPoints[i].time << "\n";
+	}
+	*/
+
 
 	return;
 }
