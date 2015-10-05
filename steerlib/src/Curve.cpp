@@ -44,7 +44,6 @@ void Curve::addControlPoints(const std::vector<CurvePoint>& inputPoints)
 void Curve::drawCurve(Color curveColor, float curveThickness, int window)
 {
 #ifdef ENABLE_GUI
-	window = 1; //Remove this line before submitting
 
 	if (controlPoints.size() < 2) //There are less than 2 points
 	{
