@@ -18,11 +18,10 @@
 namespace SteerLib
 {
 
-    class GJK_EPA
+    class STEERLIB_API GJK_EPA
     {
         public:
-            GJK_EPA();
-
+			GJK_EPA();
             /*
              *
              *  DO NOT CHANGE THE FUNCTION DEFINITION FOR intersect()
@@ -126,7 +125,31 @@ namespace SteerLib
              *  original version of polygon1
              *  DO NOT MODIFY polygon1.xml
              */
+
+			struct Edge
+			{
+				Util::Point pointA;
+				Util::Point pointB;
+				Util::Vector normal;
+				float distance;
+				int nVertIndex;
+			};
+
             static bool intersect(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
+
+			static Util::Vector EPA(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB, std::vector<Util::Vector> simplex, float& return_penetration_depth, Util::Vector& return_penetration_vector);
+
+			static bool GJK(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
+
+			static Util::Vector GJK_Support(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB, Util::Vector direction);
+
+			static bool GJK_originCheck(Util::Vector& direction);
+
+			static Util::Vector getFarthestPoint(const std::vector<Util::Vector>& _shape, Util::Vector direction);
+
+			static SteerLib::GJK_EPA::Edge getClosestEdge(std::vector<Util::Vector> simplex);
+
+			static std::vector<Util::Vector> getClosestOrigin(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
 
         private:
 
