@@ -24,7 +24,7 @@ PolygonObstacle::PolygonObstacle(std::vector<Util::Point> points, float traversa
     }
 
 	_centerPosition = Util::Point(0,0,0);
-	_radius = 1.0;
+	_radius = 0.0;
 	float ymin = 0.0;
 	float ymax = 1.0;
 	_bounds.ymin = ymin;
@@ -48,7 +48,6 @@ void PolygonObstacle::draw()
 {
 
 	Util::Point height_dist(0.0,1.0,0.0);
-	
 	for (size_t _vert=0; _vert < this->_points.size()-1; _vert++)
 	{
 		Util::Point p0, p1;
@@ -60,8 +59,8 @@ void PolygonObstacle::draw()
 		Util::DrawLib::drawQuad(p0, p1,	p1 + height_dist, p0 +height_dist,Util::gDarkMagenta);
 
 	}
-	
-	
+
+
 	if ( isConvex_ )
 	{
 		Util::Point p0, p1;
@@ -72,7 +71,7 @@ void PolygonObstacle::draw()
 		Util::DrawLib::drawLine(p0, p0+height_dist, Util::gBlack, 2.0);
 		Util::DrawLib::drawQuad(p0, p1,	p1 + height_dist, p0 +height_dist, Util::gDarkMagenta);
 	}
-	
+
 }
 
 std::pair<std::vector<Util::Point>,std::vector<size_t> > PolygonObstacle::getStaticGeometry()

@@ -25,7 +25,7 @@ CurveAgent::CurveAgent()
 	_enabled = false;
 
 	// Set curve type here
-	curve.setType(Util::catmullCurve);
+	curve.setType(Util::hermiteCurve);
 }
 
 CurveAgent::~CurveAgent()
@@ -150,101 +150,14 @@ void CurveAgent::draw()
 		SteerLib::SpatialDatabaseItem * objectFound;
 		Util::DrawLib::drawLine(ray.pos, ray.eval(1.0f));
 		if (gSpatialDatabase->trace(ray, t, objectFound, this, false)) {
-			//Draw pyramid
-			glPushMatrix();
-			{
-				Util::DrawLib::glTranslate(__position);
-				Util::DrawLib::glColor(agentColor);
-				glScalef(_radius, _radius, _radius);
-				glDisable(GL_CULL_FACE);
-
-				glBegin(GL_TRIANGLES);
-				//Back tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, 1.0f);
-				glVertex3f(1.0f, 0.0f, 1.0f);
-				//Left tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, 1.0f);
-				glVertex3f(-1.0f, 0.0f, -1.0f);
-				//Right tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(1.0f, 0.0f, 1.0f);
-				glVertex3f(1.0f, 0.0f, -1.0f);
-				//Front tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, -1.0f);
-				glVertex3f(1.0f, 0.0f, -1.0f);
-				glEnd();
-
-				glEnable(GL_CULL_FACE);
-			}
-			glPopMatrix();
+			Util::DrawLib::drawAgentDisc(__position, _forward, _radius, Util::gOrange);
 		}
 		else {
-			//Draw pyramid
-			glPushMatrix();
-			{
-				Util::DrawLib::glTranslate(__position);
-				Util::DrawLib::glColor(agentColor);
-				glScalef(_radius, _radius, _radius);
-				glDisable(GL_CULL_FACE);
-
-				glBegin(GL_TRIANGLES);
-				//Back tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, 1.0f);
-				glVertex3f(1.0f, 0.0f, 1.0f);
-				//Left tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, 1.0f);
-				glVertex3f(-1.0f, 0.0f, -1.0f);
-				//Right tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(1.0f, 0.0f, 1.0f);
-				glVertex3f(1.0f, 0.0f, -1.0f);
-				//Front tri
-				glVertex3f(0.0f, 2.0f, 0.0f);
-				glVertex3f(-1.0f, 0.0f, -1.0f);
-				glVertex3f(1.0f, 0.0f, -1.0f);
-				glEnd();
-
-				glEnable(GL_CULL_FACE);
-			}
-			glPopMatrix();
+			Util::DrawLib::drawAgentDisc(__position, _forward, _radius, Util::gDarkOrange);
 		}
 	}
 	else {
-		//Draw pyramid
-		glPushMatrix();
-		{
-			Util::DrawLib::glTranslate(__position);
-			Util::DrawLib::glColor(agentColor);
-			glScalef(_radius, _radius, _radius);
-			glDisable(GL_CULL_FACE);
-
-			glBegin(GL_TRIANGLES);
-			//Back tri
-			glVertex3f(0.0f, 2.0f, 0.0f);
-			glVertex3f(-1.0f, 0.0f, 1.0f);
-			glVertex3f(1.0f, 0.0f, 1.0f);
-			//Left tri
-			glVertex3f(0.0f, 2.0f, 0.0f);
-			glVertex3f(-1.0f, 0.0f, 1.0f);
-			glVertex3f(-1.0f, 0.0f, -1.0f);
-			//Right tri
-			glVertex3f(0.0f, 2.0f, 0.0f);
-			glVertex3f(1.0f, 0.0f, 1.0f);
-			glVertex3f(1.0f, 0.0f, -1.0f);
-			//Front tri
-			glVertex3f(0.0f, 2.0f, 0.0f);
-			glVertex3f(-1.0f, 0.0f, -1.0f);
-			glVertex3f(1.0f, 0.0f, -1.0f);
-			glEnd();
-
-			glEnable(GL_CULL_FACE);
-		}
-		glPopMatrix();
+		Util::DrawLib::drawAgentDisc(__position, _forward, _radius, agentColor);
 	}
 
 	// Draw flags for all goal targets
