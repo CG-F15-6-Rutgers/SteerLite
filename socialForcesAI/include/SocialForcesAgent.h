@@ -17,10 +17,10 @@
 #include <queue>
 #include <list>
 #include "SteerLib.h"
+
 // #include "SimpleAgent.h"
 // #include "SocialForcesAIModule.h"
 #include "SocialForces_Parameters.h"
-
 
 /**
  * @brief Social Forces Agent stuff
@@ -108,7 +108,6 @@ class SocialForcesAgent : public SteerLib::AgentInterface
         bool reachedCurrentWaypoint();
         void updateMidTermPath();
         bool hasLineOfSightTo(Util::Point point);
-
 
         void calcNextStep(float dt);
         Util::Vector calcRepulsionForce(float dt);

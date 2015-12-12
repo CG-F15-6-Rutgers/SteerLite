@@ -45,6 +45,15 @@
     <zmin>-10</zmin>
     <zmax>-8</zmax>
   </obstacle>
+  
+    <obstacle>
+    <xmin>-16</xmin>
+    <xmax>-2</xmax>
+    <ymin>0</ymin>
+    <ymax>1</ymax>
+    <zmin>-4</zmin>
+    <zmax>4</zmax>
+  </obstacle>
 
 
   <agent>
